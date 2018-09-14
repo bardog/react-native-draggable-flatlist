@@ -387,14 +387,14 @@ class SortableFlatList extends Component {
         style={styles.wrapper} // Setting { opacity: 1 } fixes Android measurement bug: https://github.com/facebook/react-native/issues/18034#issuecomment-368417691
       >
         <FlatList
-          scrollEnabled={this.state.activeRow === -1}
           ref={ref => this._flatList = ref}
-          renderItem={this.renderItem}
+          scrollEnabled={this.state.activeRow === -1}
           extraData={this.state}
           keyExtractor={keyExtractor || this.keyExtractor}
           onScroll={({ nativeEvent }) => this._scrollOffset = nativeEvent.contentOffset[horizontal ? 'x' : 'y']}
           scrollEventThrottle={16}
           {...this.props}
+          renderItem={this.renderItem}
         />
         {this.renderHoverComponent()}
       </View>
