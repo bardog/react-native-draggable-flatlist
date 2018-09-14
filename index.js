@@ -133,6 +133,13 @@ class SortableFlatList extends Component {
       }
     })
     this.state = initialState
+    
+    this.scrollToEnd = this.scrollToEnd.bind(this)
+    this.scrollToIndex = this.scrollToIndex.bind(this)
+    this.scrollToItem = this.scrollToItem.bind(this)
+    this.scrollToOffset = this.scrollToOffset.bind(this)
+    this.recordInteraction = this.recordInteraction.bind(this)
+    this.flashScrollIndicators = this.flashScrollIndicators.bind(this)
   }
 
   onReleaseAnimationEnd = () => {
@@ -152,6 +159,37 @@ class SortableFlatList extends Component {
       to: spacerIndex - (isAfterActive ? 1 : 0),
       data: sortedData,
     })
+  }
+  
+  //Forwarded flat list methods
+  scrollToEnd (...params) {
+    if (this._flatList)
+      this._flatList.scrollToEnd(...params);
+  }
+
+  scrollToIndex (...params) {
+    if (this._flatList)
+      this._flatList.scrollToIndex(...params);
+  }
+
+  scrollToItem (...params) {
+    if (this._flatList)
+      this._flatList.scrollToItem(...params);
+  }
+
+  scrollToOffset (...params) {
+    if (this._flatList)
+      this._flatList.scrollToOffset(...params);
+  }
+
+  recordInteraction (...params) {
+    if (this._flatList)
+      this._flatList.recordInteraction(...params);
+  }
+
+  flashScrollIndicators (...params) {
+    if (this._flatList)
+      this._flatList.flashScrollIndicators(...params);
   }
 
   getSortedList = (data, activeRow, spacerIndex) => {
