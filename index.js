@@ -294,6 +294,7 @@ class SortableFlatList extends Component {
   move = (hoverComponent, index) => {
     const { onMoveBegin } = this.props
     if (this._releaseAnim) {
+      this.setState(initialState)
       this._releaseAnim.stop()
       this.onReleaseAnimationEnd()
       return
