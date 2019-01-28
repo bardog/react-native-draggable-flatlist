@@ -207,7 +207,7 @@ class SortableFlatList extends Component {
 
   animate = () => {
     const { activeRow } = this.state
-    const { scrollPercent, data, horizontal } = this.props
+    const { scrollPercent, data, horizontal, scrollSpeed } = this.props
     const scrollRatio = scrollPercent / 100
     if (activeRow === -1) return
     const nextSpacerIndex = this.getSpacerIndex(this._move, activeRow)
@@ -228,8 +228,8 @@ class SortableFlatList extends Component {
       const fingerPosition = Math.max(0, this._move - this._containerOffset)
       const shouldScrollUp = !isFirstItem && fingerPosition < (this._containerSize * scrollRatio)
       const shouldScrollDown = !isLastItem && fingerPosition > (this._containerSize * (1 - scrollRatio))
-      if (shouldScrollUp) this.scroll(-5, nextSpacerIndex)
-      else if (shouldScrollDown) this.scroll(5, nextSpacerIndex)
+      if (shouldScrollUp) this.scroll(-scrollSpeed, nextSpacerIndex)
+      else if (shouldScrollDown) this.scroll(scrollSpeed, nextSpacerIndex)
     }
 
     requestAnimationFrame(this.animate)
@@ -407,6 +407,7 @@ export default SortableFlatList
 
 SortableFlatList.defaultProps = {
   scrollPercent: 5,
+  scrollSpeed:5,
   contentContainerStyle: {},
 }
 
@@ -431,7 +432,7 @@ class RowItem extends PureComponent {
     })
     // Rendering the final row requires padding to be applied at the bottom
     return (
-      <View ref={setRef(index)} style={{ opacity: 1, flexDirection: horizontal ? 'row' : 'column' }}>
+      <View ref={setRef(index)} collapsable={false} style={{ opacity: 1, flexDirection: horizontal ? 'row' : 'column' }}>
         {!!spacerSize && this.renderSpacer(spacerSize)}
         <View style={[
           horizontal ? { width: isActiveRow ? 0 : undefined } : { height: isActiveRow ? 0 : undefined },
